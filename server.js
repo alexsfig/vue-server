@@ -91,12 +91,12 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
             res.status(200).send({success: "images error" })   
         }
         else{
-            image_path = root_path + "/" + id +"/avatar.png"
+            var image_path = root_path + "/" + id +"/avatar.png"
             fs.writeFile(element_path2 + "/avatar.png", data, {encoding: 'base64'}, function(err){
                 if (err) {
                     res.status(200).send({success: "images error"})   
                 }else{
-                    image_path2 = static_path + "/" + id +"/avatar.png"
+                    var image_path2 = static_path + "/" + id +"/avatar.png"
                     res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2 })
                 }
             });
