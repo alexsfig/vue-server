@@ -89,9 +89,9 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
     fs.writeFile(element_path + "/avatar.png", data, {encoding: 'base64'}, function(err){
         if (err) {
             image_path = root_path + "/" + id +"/avatar.png"
-            res.status(200).send({success: "images error", path: image_path })   
+            res.status(200).send({success: "images error" })   
         }else{
-            res.status(200).send({success: "images successfully uploaded"})   
+            res.status(200).send({success: "images successfully uploaded", path: image_path})
         }
     });
     fs.writeFile(element_path2 + "/avatar.png", data, {encoding: 'base64'}, function(err){
@@ -99,7 +99,7 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
             image_path = static_path + "/" + id +"/avatar.png"
             res.status(200).send({success: "images error", path: image_path })   
         }else{
-            res.status(200).send({success: "images successfully uploaded"})   
+            res.status(200).send({success: "images successfully uploaded", path: image_path})
         }
     });
   
