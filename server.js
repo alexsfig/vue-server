@@ -98,7 +98,7 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
         }
         else{
             var image_path = root_path + "/" + id + "/" + text + ".png"
-            fs.writeFile(element_path2 + "/avatar.png", data, {encoding: 'base64'}, function(err){
+            fs.writeFile(element_path2 + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
                 if (err) {
                     res.status(200).send({success: "images error"})   
                 }else{
