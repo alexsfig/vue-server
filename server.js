@@ -7,9 +7,12 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var assert = require('assert');
+var env = require('node-env-file');
+env(__dirname + '/.env');
 var fs =  require("fs")
 
-var BASE_PATH = "/var/www/html/insense-web/dist/static/img/src/assets/images/";
+var BASE_PATH = process.env.BASE_PATH
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +22,6 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, x-access-token');
     res.setHeader('Access-Control-Allow-Credentials', true);
-
     if ('OPTIONS' == req.method) {
         res.sendStatus(200);
     }
@@ -27,6 +29,7 @@ app.use(function(req, res, next) {
         next();
     }
 });
+
 var port = process.env.PORT || 5002;        // set our port
 
 // ROUTES FOR OUR API
@@ -38,10 +41,7 @@ app.get('*', (req, res) => res.status(200).send({
     message: 'Welcome to the beginning of INSENSE.',
 }));
 var multer  = require('multer')
-
 var upload = multer({ dest: '' })
-
-
 router.post('/upload_avatar', upload.array(), function (req, res, next) {
     var base64Data = req.body.avatar;
     var id = req.body.id;
