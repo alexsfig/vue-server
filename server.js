@@ -103,7 +103,7 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
                     res.status(200).send({success: "images error"})   
                 }else{
                     var image_path2 = static_path + "/" + id + "/" + text + ".png"
-                    res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2 })
+                    res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2, image_name:  text + ".png" })
                 }
             });
         }
