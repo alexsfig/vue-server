@@ -86,17 +86,23 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
     if (!fs.existsSync(element_path2)){
         fs.mkdirSync(element_path2);
     }
-    fs.writeFile(element_path + "/avatar.png", data, {encoding: 'base64'}, function(err){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    fs.writeFile(element_path + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
         if (err) {
             res.status(200).send({success: "images error" })   
         }
         else{
-            var image_path = root_path + "/" + id +"/avatar.png"
+            var image_path = root_path + "/" + id + "/" + text + ".png"
             fs.writeFile(element_path2 + "/avatar.png", data, {encoding: 'base64'}, function(err){
                 if (err) {
                     res.status(200).send({success: "images error"})   
                 }else{
-                    var image_path2 = static_path + "/" + id +"/avatar.png"
+                    var image_path2 = static_path + "/" + id + "/" + text + ".png"
                     res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2 })
                 }
             });
