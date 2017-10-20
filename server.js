@@ -55,7 +55,7 @@ var upload = multer({ dest: '' })
 router.post('/upload_avatar', upload.array(), function (req, res, next) {
     var base64Data = req.body.avatar;
     var id = req.body.id;
-    var root_path =  req.body.root_path;
+    var root_path_base =  req.body.root_path;
 
     //imageBuffer  = new Buffer(base64Data, 'base64')
     var data = base64Data.replace(/^data:image\/\w+;base64,/, '');
@@ -63,12 +63,12 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
         ex: IMG_PATH = /home/alex/Documentos/new_projects/insense-web/src/assets/images/ 
         root_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/employees
     */
-    root_path = IMG_PATH + root_path ;  
+    root_path = IMG_PATH + root_path_base ;  
     if (!fs.existsSync(root_path)) {
         fs.mkdirSync(root_path);
     }
 
-    var static_path = STATIC_PATH + root_path ;  
+    var static_path = STATIC_PATH + root_path_base ;  
     if (!fs.existsSync(static_path)) {
         fs.mkdirSync(static_path);
     }
