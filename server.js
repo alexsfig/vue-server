@@ -90,13 +90,15 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
 
     fs.writeFile(element_path + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
         if (err) {
-            res.status(200).send({success: "images error" })
+            res.status(200).send({success: "images error", path: element_path + "/" + text + ".png" })
         }
         else{
             var image_path = root_path + "/" + id + "/" + text + ".png"
+            console.log('img ' + image_path);
+
             fs.writeFile(element_path2 + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
                 if (err) {
-                    res.status(200).send({success: "images error"})
+                    res.status(200).send({success: "images error", path: image_path})
                 }else{
                     var image_path2 = static_path + "/" + id + "/" + text + ".png"
                     res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2, image_name:  text + ".png" })
