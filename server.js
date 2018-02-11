@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var assert = require('assert');
 var env = require('node-env-file');
 
-// use for vue production 
+// use for vue production
 var history = require('connect-history-api-fallback');
 var path = require('path');
 var serveStatic = require('serve-static');
@@ -54,30 +54,29 @@ var multer  = require('multer')
 var upload = multer({ dest: '' })
 router.post('/upload_avatar', upload.array(), function (req, res, next) {
     var base64Data = req.body.avatar;
-    var id = req.body.id;
     var root_path_base =  req.body.root_path;
 
     //imageBuffer  = new Buffer(base64Data, 'base64')
     var data = base64Data.replace(/^data:image\/\w+;base64,/, '');
-    /* Create root path for images 
-        ex: IMG_PATH = /home/alex/Documentos/new_projects/insense-web/src/assets/images/ 
-        root_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/employees
+    /* Create root path for images
+        ex: IMG_PATH = /home/alex/Documentos/new_projects/insense-web/src/assets/images/
+        root_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/:key
     */
-    root_path = IMG_PATH + root_path_base ;  
+    root_path = IMG_PATH + root_path_base ;
     if (!fs.existsSync(root_path)) {
         fs.mkdirSync(root_path);
     }
 
-    var static_path = STATIC_PATH + root_path_base ;  
+    var static_path = STATIC_PATH + root_path_base ;
     if (!fs.existsSync(static_path)) {
         fs.mkdirSync(static_path);
     }
-    /* Create element path for images 
-        ex: IMG_PATH = /home/alex/Documentos/new_projects/insense-web/src/assets/images/ 
-        root_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/employees
-        element_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/employees/1
+    /* Create element path for images
+        ex: IMG_PATH = /home/alex/Documentos/new_projects/insense-web/src/assets/images/
+        root_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/:key
+        element_path = /home/alex/Documentos/new_projects/insense-web/src/assets/images/:key/:key2
     */
-    
+    let id = req.body.id
     var element_path = root_path + "/" + id;
     if (!fs.existsSync(element_path)){
         fs.mkdirSync(element_path);
@@ -86,21 +85,18 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
     if (!fs.existsSync(element_path2)){
         fs.mkdirSync(element_path2);
     }
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var text = req.body.filename;;
 
-    for (var i = 0; i < 5; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     fs.writeFile(element_path + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
         if (err) {
-            res.status(200).send({success: "images error" })   
+            res.status(200).send({success: "images error" })
         }
         else{
             var image_path = root_path + "/" + id + "/" + text + ".png"
             fs.writeFile(element_path2 + "/" + text + ".png", data, {encoding: 'base64'}, function(err){
                 if (err) {
-                    res.status(200).send({success: "images error"})   
+                    res.status(200).send({success: "images error"})
                 }else{
                     var image_path2 = static_path + "/" + id + "/" + text + ".png"
                     res.status(200).send({success: "images successfully uploaded", path: image_path,  static_path: image_path2, image_name:  text + ".png" })
@@ -108,7 +104,7 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
             });
         }
     });
-  
+
 })
 
 // more routes for our API will happen here
