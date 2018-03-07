@@ -4,27 +4,12 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var assert = require('assert');
-var env = require('node-env-file');
+const express    = require('express');        // call express
+const app        = express();                 // define our app using express
+const bodyParser = require('body-parser');
+const env = require('node-env-file');
+const jwt = require('jsonwebtoken');
 
-// use for vue production
-var history = require('connect-history-api-fallback');
-var path = require('path');
-var serveStatic = require('serve-static');
-var port = process.env.PORT || 5000;
-app.use(history())
-app.use(serveStatic(__dirname));
-
-env(__dirname + '/.env');
-var fs =  require("fs")
-
-var IMG_PATH = process.env.IMG_PATH
-var STATIC_PATH = process.env.STATIC_PATH
-// configure app to use bodyParser()
-// this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -40,16 +25,29 @@ app.use(function(req, res, next) {
     }
 });
 
-var port = process.env.PORT || 8081;        // set our port
+require('./server/routes')(app, jwt, express);
+module.exports = app;
+// use for vue production
+const history = require('connect-history-api-fallback');
+const serveStatic = require('serve-static');
+const port = process.env.PORT || 5000;
+app.use(history())
+app.use(serveStatic(__dirname));
+
+var fs =  require("fs")
+
+var IMG_PATH = process.env.IMG_PATH
+var STATIC_PATH = process.env.STATIC_PATH
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
+    var router = express.Router();              // get an instance of the express Router
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-app.get('*', (req, res) => res.status(200).send({
-    message: 'Welcome to the beginning of INSENSE.',
-}));
+
 var multer  = require('multer')
 var upload = multer({ dest: '' })
 router.post('/upload_avatar', upload.array(), function (req, res, next) {
@@ -113,9 +111,13 @@ router.post('/upload_avatar', upload.array(), function (req, res, next) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
-
+app.use('/api/images/', router);
+// Setup a default catch-all route that sends back a welcome message in JSON format.
+app.get('*', (req, res) => res.status(200).send({
+    message: 'Welcome to the beginning of INSENSE.',
+}));
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+ app.listen(port);
+
 console.log('Magic happens on port ' + port);

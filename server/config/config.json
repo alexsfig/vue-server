@@ -1,0 +1,28 @@
+{
+    "development": {
+        "username": "tgraduacion",
+        "password": "tgraduacion",
+        "database": "fesasurf",
+        "host": "104.131.171.128",
+        "port": 3306,
+        "dialect": "mysql",
+        "define": {
+            "timestamps": false
+        }
+    },
+    "test": {
+        "username": "tgraduacion",
+        "password": "tgraduacion",
+        "database": "fesasurf_developer",
+        "host": "104.131.171.128",
+        "port": 3306,
+        "dialect": "mysql",
+        "define": {
+            "timestamps": false
+        }
+    },
+    "production": {
+        "use_env_variable": "DATABASE_URL",
+        "dialect": "mysql"
+    }
+}
