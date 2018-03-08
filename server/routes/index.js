@@ -1,4 +1,5 @@
 const noticiasController = require('../controllers').noticias;
+const atletasController = require('../controllers').atletas;
 
 
 module.exports = (app, jwt, express) =>
@@ -60,6 +61,8 @@ module.exports = (app, jwt, express) =>
 
     //  Roles.-
     apiRoutes.get('/noticias', noticiasController.list);
+    apiRoutes.get('/atletas', atletasController.list);
+    apiRoutes.get('/atletas/:id', atletasController.find);
 
 
 

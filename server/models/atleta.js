@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('atleta', {
+  const Atleta =   sequelize.define('Atleta', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -107,4 +107,18 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'atleta'
   });
+
+  Atleta.associate = (models) => {
+        Atleta.hasOne(models.Persona,
+        {
+            foreignKey: 'atleta_id',
+            as: 'persona'
+        });
+        Atleta.hasMany(models.Ranking,
+        {
+            foreignKey: 'atleta_id',
+            as: 'ranking'
+        });
+  };
+  return Atleta;
 };

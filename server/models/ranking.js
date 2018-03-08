@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('ranking', {
+  const Ranking = sequelize.define('Ranking', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -35,4 +35,5 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'ranking'
   });
+  return  Ranking;
 };
