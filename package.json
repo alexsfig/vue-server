@@ -1,7 +1,8 @@
 {
-  "name": "upload_images",
+  "name": "vue_server_TG",
   "version": "1.0.0",
-  "description": "",
+  "description": "vue server with express api",
+  "repository": "https://github.com/alexsfig/vue-server",
   "main": "index.js",
   "engines": {
     "node": "8.6.0"
@@ -9,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "alexsfig2",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -32,6 +33,7 @@
     "node-gcm": "^0.14.10",
     "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
-    "pm2": "^2.7.0"
+    "pm2": "^2.7.0",
+    "qs": "^1.0.0"
   }
 }
