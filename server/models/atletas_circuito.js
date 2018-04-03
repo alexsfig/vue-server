@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('atletas_circuito', {
+  const AtletasCircuito =  sequelize.define('AtletasCircuito', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -31,4 +31,19 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'atletas_circuito'
   });
+  AtletasCircuito.associate = (models) => {
+    AtletasCircuito.belongsTo(models.Atleta,
+      {
+          foreignKey: 'atleta_id',
+          as: 'atleta'
+      }
+    );
+    AtletasCircuito.belongsTo(models.Circuito,
+      {
+          foreignKey: 'circuito_id',
+          as: 'circuito'
+      }
+    );
+  };
+  return AtletasCircuito;
 };

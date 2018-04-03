@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('fecha', {
+  const Fecha = sequelize.define('Fecha', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -27,4 +27,18 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'fecha'
   });
+
+  Fecha.associate = (models) => {
+    Fecha.belongsTo(models.Playa,
+    {
+        foreignKey: 'playa_id',
+        as: 'playa'
+    });
+    Fecha.hasMany(models.Circuito,
+    {
+        foreignKey: 'fecha_id',
+        as: 'circuitos'
+    });
+  };
+  return Fecha
 };

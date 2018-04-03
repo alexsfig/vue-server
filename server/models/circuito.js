@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('circuito', {
+  const Circuito =  sequelize.define('Circuito', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -40,4 +40,25 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'circuito'
   });
+  Circuito.associate = (models) => {
+    Circuito.belongsTo(models.Fecha,
+      {
+          foreignKey: 'fecha_id',
+          as: 'fecha'
+      }
+    );
+    Circuito.belongsTo(models.Categoria,
+      {
+          foreignKey: 'categoria_id',
+          as: 'categoria'
+      }
+    );
+    Circuito.hasMany(models.AtletasCircuito,
+    {
+        foreignKey: 'circuito_id',
+        as: 'atletas_circuito'
+    });
+  };
+  return Circuito
+
 };

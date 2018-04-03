@@ -1,5 +1,7 @@
 const noticiasController = require('../controllers').noticias;
 const atletasController = require('../controllers').atletas;
+const fechasController = require('../controllers').fechas;
+const circuitoController = require('../controllers').circuitos;
 
 
 module.exports = (app, jwt, express) =>
@@ -63,6 +65,10 @@ module.exports = (app, jwt, express) =>
     apiRoutes.get('/noticias', noticiasController.list);
     apiRoutes.get('/atletas', atletasController.list);
     apiRoutes.get('/atletas/:id', atletasController.find);
+    apiRoutes.get('/fechas', fechasController.list);
+    apiRoutes.get('/fechas/:id', fechasController.find);
+    apiRoutes.get('/circuitos/:id', circuitoController.find);
+    apiRoutes.get('/circuitos/:id/atletas', circuitoController.atletasCircuito);
 
 
 

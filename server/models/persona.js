@@ -83,5 +83,14 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'persona'
   });
+
+  Persona.associate = (models) => {
+    Persona.belongsTo(models.Atleta,
+      {
+          foreignKey: 'atleta_id',
+          as: 'atleta'
+      }
+    );
+  };
   return Persona;
 };

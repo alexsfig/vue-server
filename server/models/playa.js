@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('playa', {
+  const Playa =   sequelize.define('Playa', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -19,4 +19,5 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'playa'
   });
+  return Playa;
 };
