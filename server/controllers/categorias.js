@@ -2,6 +2,9 @@
 const Circuito = require('../models').Circuito;
 const Playa = require('../models').Playa;
 const Categoria = require('../models').Categoria;
+const Ranking = require('../models').Ranking;
+const Atleta = require('../models').Atleta;
+const Persona = require('../models').Persona;
 
 module.exports = {
 	/**
@@ -18,7 +21,7 @@ module.exports = {
      *     curl -i http://localhost:8000/api/v1/tags/
      */
 	list(req, res){
-		return Categoria.findAll(
+		return Categoria.findCategoria(
 			{
 			}
 		)
@@ -78,4 +81,54 @@ module.exports = {
         	});
 		}
 	},
+
+	findAtletas(req, res){
+		if (req.params.id) {
+			return Categoria.findOne({
+				where: {
+					id: req.params.id
+				},
+				order: [
+        	[
+          	{model: Ranking, as: 'ranking'}, 'lugar', 'ASC'
+		      ]
+		    ],
+				include: [
+					{
+						model: Ranking, as: 'ranking',
+						where: {
+							anio: req.params.anio
+						},
+						include: [
+							{
+								model: Atleta, as: 'atleta',
+								include: [
+									{
+										model: Persona, as: 'persona'
+									},
+								]
+							},
+						]
+					},
+        ]
+			})
+			.then(tag => {
+				if(!tag){
+					res.status(404).send({
+						success: false,
+						message: "Categoria not found"
+					});
+				}else{
+					res.status(200).send(tag);
+				}
+			})
+			.catch(error => res.status(400).send(error));
+		}else {
+            return res.status(404).send({
+            	message: 'Categoria not found',
+        	});
+		}
+	},
+
+
 };

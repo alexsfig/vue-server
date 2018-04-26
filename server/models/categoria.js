@@ -31,6 +31,23 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'categoria'
   });
+  Categoria.findCategoria = () =>
+  {
+      return sequelize.query(
+          "select *, (select count(*) from ranking where categoria_id = cat.id ) atletas from categoria cat",
+          {
+            type: sequelize.QueryTypes.SELECT
+          }
+      );
+  };
+
+  Categoria.associate = (models) => {
+    Categoria.hasMany(models.Ranking,
+    {
+        foreignKey: 'categoria_id',
+        as: 'ranking'
+    });
+  };
 
   return Categoria;
 };

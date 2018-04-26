@@ -27,7 +27,15 @@ module.exports = function(sequelize, DataTypes) {
         model: 'circuito',
         key: 'id'
       }
-    }
+    },
+    posicion: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+    },
+    puntos: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+    },
   }, {
     tableName: 'atletas_circuito'
   });
