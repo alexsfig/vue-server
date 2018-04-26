@@ -70,6 +70,7 @@ module.exports = (app, jwt, express) =>
     apiRoutes.get('/fechas', fechasController.list);
     apiRoutes.get('/fechas/:id', fechasController.find);
     apiRoutes.get('/circuitos/:id', circuitoController.find);
+    apiRoutes.get('/categorias/:id/atletas/:anio', categoriasController.findAtletas);
     apiRoutes.get('/circuitos/:id/atletas', circuitoController.atletasCircuito);
 
 

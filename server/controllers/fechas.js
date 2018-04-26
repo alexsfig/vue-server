@@ -64,7 +64,8 @@ module.exports = {
 						model: Circuito, as: 'circuitos',
 						include: [
 							{
-								model: Categoria, as: 'categoria'
+								model: Categoria, as: 'categoria',
+								model: AletatCircuito
 							},
 						]
 					},

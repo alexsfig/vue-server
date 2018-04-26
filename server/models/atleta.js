@@ -119,6 +119,13 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'atleta_id',
             as: 'ranking'
         });
+        Atleta.hasMany(models.AtletasCircuito,
+        {
+            foreignKey: 'atleta_id',
+            as: 'atletaCircuito'
+        });
   };
+
+
   return Atleta;
 };

@@ -16,6 +16,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DECIMAL,
       allowNull: true
     },
+
+    lugar: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+    },
+    
     atleta_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -35,5 +41,15 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'ranking'
   });
+
+  Ranking.associate = (models) => {
+    Ranking.belongsTo(models.Atleta,
+    {
+        foreignKey: 'atleta_id',
+        as: 'atleta'
+    });
+
+  };
+
   return  Ranking;
 };
