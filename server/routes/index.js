@@ -9,11 +9,11 @@ module.exports = (app, jwt, express) =>
 {
     const apiRoutes = express.Router();
 
-    app.get('/', (req, res) => res.status(200).send(
+/*    app.get('/', (req, res) => res.status(200).send(
     {
         message: 'Welcome to the INSENSE API !!!',
     }));
-
+*/
     /* Catch all routes and validates token: */
     app.all('*', function(req, res, next)
     {
