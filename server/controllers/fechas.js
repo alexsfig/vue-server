@@ -3,7 +3,7 @@ const Fecha = require('../models').Fecha;
 const Circuito = require('../models').Circuito;
 const Playa = require('../models').Playa;
 const Categoria = require('../models').Categoria;
-
+const AtletasCircuito = require('../models').AtletasCircuito;
 module.exports = {
 	/**
      * @api {get} /tags/ Get tags
@@ -66,6 +66,9 @@ module.exports = {
 							{
 								model: Categoria, as: 'categoria'
 							},
+							{
+                                                                model: AtletasCircuito, as: 'atletas_circuito'
+                                                        },
 						]
 					},
         ]

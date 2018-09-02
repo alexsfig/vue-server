@@ -84,6 +84,11 @@ module.exports = {
 				where: {
 					id: req.params.id
 				},
+				order: [
+					[
+                				{model: AtletasCircuito, as: 'atletas_circuito'}, 'puntos', 'DESC'
+                      			]
+				],
 				include: [
 					{
 						model: Categoria, as: 'categoria'

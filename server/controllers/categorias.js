@@ -11,9 +11,12 @@ module.exports = {
      * @api {get} /tags/ Get tags
      * @apiName GetCategoria
      * @apiGroup CategoriaAPI
+
      *
      * @apiPermission Authorized users only via token
      *
+
+
      * @apiSuccess {String} name Name of the tag.
      * @apiSuccess {Boolean} status Status of the tag.
      *
@@ -89,10 +92,11 @@ module.exports = {
 					id: req.params.id
 				},
 				order: [
-        	[
-          	{model: Ranking, as: 'ranking'}, 'lugar', 'ASC'
-		      ]
-		    ],
+        				[
+          					{model: Ranking, as: 'ranking'}, 'lugar', 'ASC',
+                                                //{model: Persona, as: 'persona'}, 'apellido', 'ASC'
+                                        ],
+		   		],
 				include: [
 					{
 						model: Ranking, as: 'ranking',
